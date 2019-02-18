@@ -26,14 +26,10 @@
       "display_name": "Cisco Process Orchestrator Integration",
       "favorite": false,
       "target": {
-        "execute_on_target_group": true,
-        "target_group": {
-          "target_group_id": "target_group_0152JWGS9JWUJ4i0zlct3g4IttbYfHH4jGs",
-          "run_on_all_targets": true,
-          "selected_target_types": [
-            "web-service.endpoint"
-          ]
-        }
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
       }
     },
     "object_type": "definition_workflow",
@@ -58,9 +54,8 @@
             "target_default": true
           },
           "target": {
-            "override_workflow_target": false,
-            "override_workflow_target_group_criteria": false,
-            "use_workflow_target_group": true
+            "override_workflow_target": true,
+            "target_id": "definition_target_0152K9T2XO5OO1UzqGzFHbFazdRD3dfaqXi"
           }
         },
         "object_type": "definition_activity"
@@ -74,6 +69,21 @@
         "properties": {
           "completion_type": "succeeded",
           "display_name": "Completed"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_0152RPDGZRLJU3eUzOuARBiSHfR5AGAKmEa",
+        "name": "Read Table from JSON",
+        "title": "Read Table from JSON",
+        "type": "corejava.read_table_from_json",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Read Table from JSON",
+          "persist_output": false,
+          "populate_columns": false
         },
         "object_type": "definition_activity"
       }
@@ -114,27 +124,6 @@
         "description": "danlin2",
         "display_name": "http tidalsoft - DL"
       }
-    }
-  },
-  "target_groups": {
-    "target_group_0152JWGS9JWUJ4i0zlct3g4IttbYfHH4jGs": {
-      "unique_name": "target_group_0152JWGS9JWUJ4i0zlct3g4IttbYfHH4jGs",
-      "name": "Cisco process Orchestrator Targets",
-      "title": "Cisco process Orchestrator Targets",
-      "type": "generic.target_group",
-      "base_type": "target_group",
-      "version": "1.0.0",
-      "targets": [
-        {
-          "data_target_type": "web-service.endpoint",
-          "view_target_type": "web-service.endpoint",
-          "include_all_targets": false,
-          "selected_target_ids": [
-            "definition_target_0152K9T2XO5OO1UzqGzFHbFazdRD3dfaqXi"
-          ]
-        }
-      ],
-      "object_type": "target_group"
     }
   }
 }
