@@ -1,0 +1,88 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_015D74LDTRTRY1EdpOVlN8RAkCCwCozMQIl",
+    "name": "Training Matt 1",
+    "title": "Training Matt 1",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": null,
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Training Matt 1",
+      "favorite": false,
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_015D74LS4OSOT6vwCWITWBRTgmBko8x77CZ",
+        "name": "Find Cost Group Type",
+        "title": "Find Cost Group Type",
+        "type": "ccs.get_cost_group_type",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "cost_group_type": "Department",
+          "display_name": "Find Cost Group Type",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01f9IQgvQRJv3tvlqwR145Bbrye0toH0Q"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_015D74LYGTZYX4fbQQALALh5M1QELaHk75N",
+        "name": "Find Cost Group",
+        "title": "Find Cost Group",
+        "type": "ccs.get_cost_groups",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "cost_group_name": "Department",
+          "cost_group_type_id": "$activity.definition_activity_015D74LS4OSOT6vwCWITWBRTgmBko8x77CZ.output.id$",
+          "display_name": "Find Cost Group",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01f9IQgvQRJv3tvlqwR145Bbrye0toH0Q"
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_015D755V1Y3UU5uKTviJF3IHFJWY5JOkxC5",
+        "name": "Sleep",
+        "title": "Sleep",
+        "type": "core.sleep",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Sleep",
+          "sleep_interval": 5
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  }
+}
