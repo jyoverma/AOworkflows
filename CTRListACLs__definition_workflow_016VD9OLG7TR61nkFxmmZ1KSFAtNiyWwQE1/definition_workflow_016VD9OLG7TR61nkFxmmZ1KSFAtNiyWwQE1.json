@@ -14,10 +14,8 @@
       "display_name": "List CSR ACLs",
       "favorite": false,
       "target": {
-        "execute_on_target_group": false,
-        "execute_on_workflow_target": false,
-        "no_target": true,
-        "specify_on_workflow_start": false
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
       }
     },
     "object_type": "definition_workflow",
@@ -55,10 +53,9 @@
             "variable_workflow_016VA1DMYIECV0jeOBMxqeCneAzgAHHlNI6": "$activity.definition_activity_016VDA0LJREHI3MDk8AEy6CvhnA2VeX4KGj.output.variable_workflow_016VDB85NA3HV2m7cztw9hyV2EPv7Keo3Mh$"
           },
           "target": {
-            "execute_on_this_target": true,
             "override_workflow_target": false,
-            "target_id": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
-            "target_type": "web-service.endpoint"
+            "target_type": "015DN726ARGMI7iHAlOemFEUGlyxDhgRRfB",
+            "use_workflow_target": true
           },
           "workflow_id": "definition_workflow_016V9ZYINUQXL0nmucktwUMOFT90xyGUhhN"
         },
