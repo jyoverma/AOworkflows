@@ -1,0 +1,105 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016V9ZYINUQXL0nmucktwUMOFT90xyGUhhN",
+    "name": "List ACLs",
+    "title": "List ACLs",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "access-token",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VA1DMYIECV0jeOBMxqeCneAzgAHHlNI6",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "output",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VCXNJ8IR0C40VvKb9S41iiSsuIlMh1uh",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Cisco Cloud Services Router",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "List ACLs",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VCT0E7CZZR7AaeoERmxWATmo3IUPM3ET",
+        "name": "HTTP Request",
+        "title": "listACL",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "X-Auth-Token",
+              "value": "$workflow.definition_workflow_016V9ZYINUQXL0nmucktwUMOFT90xyGUhhN.input.variable_workflow_016VA1DMYIECV0jeOBMxqeCneAzgAHHlNI6$"
+            }
+          ],
+          "display_name": "listACL",
+          "method": "GET",
+          "relative_url": "/acl",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target": true,
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VCUZSK6XZZ0Ewj5gHhaX1WefaAh1Lmw5",
+        "name": "Set Variables",
+        "title": "Set-Output",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set-Output",
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_016V9ZYINUQXL0nmucktwUMOFT90xyGUhhN.output.variable_workflow_016VCXNJ8IR0C40VvKb9S41iiSsuIlMh1uh$",
+              "variable_value_new": "$activity.definition_activity_016VCT0E7CZZR7AaeoERmxWATmo3IUPM3ET.output.response_body$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  }
+}
