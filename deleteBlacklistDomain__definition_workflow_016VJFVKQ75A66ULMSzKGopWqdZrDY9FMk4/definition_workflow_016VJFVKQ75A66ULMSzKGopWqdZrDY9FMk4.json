@@ -1,0 +1,211 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016VJFVKQ75A66ULMSzKGopWqdZrDY9FMk4",
+    "name": "SWC Delete Blacklist Domain/IP",
+    "title": "SWC Delete Blacklist Domain/IP",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "scope": "local",
+          "name": "ApiKey",
+          "type": "datatype.secure_string"
+        },
+        "unique_name": "variable_workflow_016VJWXSNQL9S3o35FqOqNC2Jivaii2UAt0",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "domain/ip",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJYOAIE89P6DRweodBXwVGHQFC6qpoyB",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "StealthwatchCloud",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "SWC Delete Blacklist Domain/IP",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "target_id": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
+        "execute_on_workflow_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VJGUCUTWDA4oWxa9f3HhhjFRn6Fh3WVx",
+        "name": "SWC ListBlacklistDomains/IPs",
+        "title": "SWC ListBlacklistDomains/IPs",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "SWC ListBlacklistDomains/IPs",
+          "input": {},
+          "target": {
+            "execute_on_this_target": false,
+            "no_target": false,
+            "override_workflow_target": false,
+            "target_type": "015DN726ARGMI7iHAlOemFEUGlyxDhgRRfB",
+            "use_workflow_target": true
+          },
+          "workflow_id": "definition_workflow_016VJ7EE4WZ081gj0r9eKnEQPBXHtjRa7oq"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VJNBSDHA1I4wOfJEHcHUUSJW88Isnd8N",
+        "name": "Execute Python Script",
+        "title": "Execute Python Script",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Execute Python Script",
+          "script": "import json\nimport sys\nglobal found\nglobal id\nfound = \"false\"\njson_resp = json.loads(sys.argv[1])\nresults = json_resp['objects']\nfor result in results:\n   if result['identifier'] == sys.argv[2]:\n      found = \"true\"\n      id = result['id']\n      break",
+          "script_arguments": [
+            "$activity.definition_activity_016VJGUCUTWDA4oWxa9f3HhhjFRn6Fh3WVx.output.variable_workflow_016VJI2FM6U5L6a6cAojnkaU3YcUS2IQSce$",
+            "$workflow.definition_workflow_016VJFVKQ75A66ULMSzKGopWqdZrDY9FMk4.input.variable_workflow_016VJYOAIE89P6DRweodBXwVGHQFC6qpoyB$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "found",
+              "script_query_name": "found",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "id",
+              "script_query_name": "id",
+              "script_query_type": "string"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VJSDYE2A772461CKakp5JfhLXOyYoOMJ",
+        "name": "Condition Block",
+        "title": "Condition Block",
+        "type": "logic.if_else",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Condition Block"
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_016VJSE1CT9ZF0U5x5N9z1YXJfwytrSGzXa",
+            "name": "Condition Branch",
+            "title": "Domain/IP Found in blacklist",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_016VJNBSDHA1I4wOfJEHcHUUSJW88Isnd8N.output.script_queries.found$",
+                "operator": "eq",
+                "right_operand": "true"
+              },
+              "continue_on_failure": false,
+              "display_name": "Domain/IP Found in blacklist"
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_016VJT37XQIXI5JHUjTAU1Hk0SMRamfFFnV",
+                "name": "HTTP Request",
+                "title": "deleteDomain/IP",
+                "type": "web-service.http_request",
+                "base_type": "activity",
+                "properties": {
+                  "accept": "application/json",
+                  "action_timeout": 180,
+                  "allow_auto_redirect": true,
+                  "content_type": "application/json",
+                  "continue_on_error_status_code": false,
+                  "continue_on_failure": false,
+                  "custom_headers": [
+                    {
+                      "name": "Authorization",
+                      "value": "$workflow.definition_workflow_016VJFVKQ75A66ULMSzKGopWqdZrDY9FMk4.local.variable_workflow_016VJWXSNQL9S3o35FqOqNC2Jivaii2UAt0$"
+                    }
+                  ],
+                  "display_name": "deleteDomain/IP",
+                  "method": "DELETE",
+                  "relative_url": "blacklist/domains/$activity.definition_activity_016VJNBSDHA1I4wOfJEHcHUUSJW88Isnd8N.output.script_queries.id$/",
+                  "runtime_user": {
+                    "override_target_runtime_user": false,
+                    "target_default": true
+                  },
+                  "target": {
+                    "override_workflow_target": false,
+                    "override_workflow_target_group_criteria": false,
+                    "use_workflow_target": true,
+                    "use_workflow_target_group": false
+                  }
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_016VNI69WZMV73584XY4nWSMrqzCw1gb5lA",
+            "name": "Condition Branch",
+            "title": "Condition Branch",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$activity.definition_activity_016VJNBSDHA1I4wOfJEHcHUUSJW88Isnd8N.output.script_queries.found$",
+                "operator": "ne",
+                "right_operand": "\"true\""
+              },
+              "continue_on_failure": false,
+              "display_name": "Condition Branch"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY": {
+      "unique_name": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
+      "name": "Stealthwatch Cloud Target",
+      "title": "Stealthwatch Cloud Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "Stealthwatch Cloud Target used by Jyoti for Cisco Threat Response Integration",
+        "disable_certificate_validation": true,
+        "display_name": "Stealthwatch Cloud Target",
+        "host": "cisco-csr.obsrvbl.com",
+        "no_runtime_user": true,
+        "path": "/api/v3",
+        "port": 443,
+        "protocol": "https"
+      }
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_016VJ7EE4WZ081gj0r9eKnEQPBXHtjRa7oq"
+  ]
+}
