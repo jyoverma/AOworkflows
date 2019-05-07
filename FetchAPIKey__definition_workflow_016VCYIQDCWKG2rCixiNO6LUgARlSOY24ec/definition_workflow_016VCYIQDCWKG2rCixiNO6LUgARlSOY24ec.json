@@ -38,8 +38,7 @@
       "favorite": false,
       "target": {
         "target_type": "web-service.endpoint",
-        "target_id": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
-        "execute_on_workflow_target": true
+        "specify_on_workflow_start": true
       }
     },
     "object_type": "definition_workflow",
@@ -123,26 +122,5 @@
     "categories": [
       "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
     ]
-  },
-  "targets": {
-    "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS": {
-      "unique_name": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
-      "name": "Cisco-CSR1000v",
-      "title": "Cisco-CSR1000v",
-      "type": "web-service.endpoint",
-      "base_type": "target",
-      "object_type": "definition_target",
-      "properties": {
-        "description": "Target used by Jyothi - From AMP/Visibility",
-        "disable_certificate_validation": true,
-        "display_name": "Cisco-CSR1000v",
-        "host": "3.215.70.166",
-        "no_runtime_user": true,
-        "path": "/api/v1",
-        "port": 55443,
-        "protocol": "https",
-        "proxy_url": "http://proxy.esl.cisco.com:8080"
-      }
-    }
   }
 }
