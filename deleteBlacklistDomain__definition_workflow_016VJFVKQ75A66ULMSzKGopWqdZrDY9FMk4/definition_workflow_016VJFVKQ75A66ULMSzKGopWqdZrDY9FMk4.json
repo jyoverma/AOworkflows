@@ -38,8 +38,7 @@
       "favorite": false,
       "target": {
         "target_type": "web-service.endpoint",
-        "target_id": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
-        "execute_on_workflow_target": true
+        "specify_on_workflow_start": true
       }
     },
     "object_type": "definition_workflow",
