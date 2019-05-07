@@ -39,8 +39,7 @@
       "favorite": false,
       "target": {
         "target_type": "web-service.endpoint",
-        "target_id": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
-        "execute_on_workflow_target": true
+        "specify_on_workflow_start": true
       }
     },
     "object_type": "definition_workflow",
@@ -102,25 +101,5 @@
     "categories": [
       "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
     ]
-  },
-  "targets": {
-    "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY": {
-      "unique_name": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
-      "name": "Stealthwatch Cloud Target",
-      "title": "Stealthwatch Cloud Target",
-      "type": "web-service.endpoint",
-      "base_type": "target",
-      "object_type": "definition_target",
-      "properties": {
-        "description": "Stealthwatch Cloud Target used by Jyoti for Cisco Threat Response Integration",
-        "disable_certificate_validation": true,
-        "display_name": "Stealthwatch Cloud Target",
-        "host": "cisco-csr.obsrvbl.com",
-        "no_runtime_user": true,
-        "path": "/api/v3",
-        "port": 443,
-        "protocol": "https"
-      }
-    }
   }
 }
