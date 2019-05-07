@@ -1,0 +1,86 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016VJ3WDQTVO03g41kuyiltOVHyL3weuWax",
+    "name": "StealthwatchCloud - Remove From Blacklist",
+    "title": "StealthwatchCloud - Remove From Blacklist",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable_type",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJ4JBA1H767W75Vf3uCAVAiXIyilpz6G",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable_value",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJ4RCNKOOK16C32b9aAUgYAWtccJxcLD",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "StealthwatchCloud - Remove From Blacklist",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VJY1XHQWPI656FHcQ2vNoB0xRGnjt2ff",
+        "name": "SWC Delete Blacklist Domain/IP",
+        "title": "SWC Delete Blacklist Domain/IP",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "SWC Delete Blacklist Domain/IP",
+          "input": {
+            "variable_workflow_016VJYOAIE89P6DRweodBXwVGHQFC6qpoyB": "$workflow.definition_workflow_016VJ3WDQTVO03g41kuyiltOVHyL3weuWax.input.variable_workflow_016VJ4RCNKOOK16C32b9aAUgYAWtccJxcLD$"
+          },
+          "target": {
+            "target_type": "015DN726ARGMI7iHAlOemFEUGlyxDhgRRfB",
+            "use_workflow_target": true
+          },
+          "workflow_id": "definition_workflow_016VJFVKQ75A66ULMSzKGopWqdZrDY9FMk4"
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS"
+    ]
+  },
+  "categories": {
+    "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS": {
+      "unique_name": "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS",
+      "name": "iroh-response",
+      "title": "iroh-response",
+      "type": "basic.category",
+      "base_type": "category",
+      "description": "Action conforming to tge iroh-response API",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_016VJFVKQ75A66ULMSzKGopWqdZrDY9FMk4"
+  ]
+}
