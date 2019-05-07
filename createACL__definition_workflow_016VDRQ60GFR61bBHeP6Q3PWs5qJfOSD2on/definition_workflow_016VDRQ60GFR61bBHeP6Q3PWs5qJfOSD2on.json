@@ -72,8 +72,7 @@
       "favorite": false,
       "target": {
         "target_type": "web-service.endpoint",
-        "target_id": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
-        "execute_on_workflow_target": true
+        "specify_on_workflow_start": true
       }
     },
     "object_type": "definition_workflow",
@@ -89,12 +88,8 @@
           "display_name": "Fetch API Key",
           "input": {},
           "target": {
-            "execute_on_this_target": true,
-            "no_target": false,
-            "override_workflow_target": false,
-            "target_id": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
-            "target_type": "web-service.endpoint",
-            "use_workflow_target": false
+            "target_type": "015DN726ARGMI7iHAlOemFEUGlyxDhgRRfB",
+            "use_workflow_target": true
           },
           "workflow_id": "definition_workflow_016VCYIQDCWKG2rCixiNO6LUgARlSOY24ec"
         },
