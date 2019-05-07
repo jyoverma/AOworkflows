@@ -1,0 +1,92 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016VJ0ICSXJ7L2ASMPSGqW6ltIEwMXaZh6d",
+    "name": "Cisco CSR - Allow",
+    "title": "Cisco CSR - Allow",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable_value",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJ1SPM0ILM6l4N9zszMixRXxalCNc1fn",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "observable_type",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJ1ITJDZRU35xgJU1AcYpmcgob6th4Dc",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Cisco CSR - Allow",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VO1OXN16IS1nmBkOSerfOTok3uGVt14u",
+        "name": "Create ACL",
+        "title": "Create ACL",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Create ACL",
+          "input": {
+            "variable_workflow_016VDTEK5ZHUB6EcwTgMFIck6uJ0jRKUgDV": "ACL_TEST",
+            "variable_workflow_016VDTRE97ES15SvHjhhuRKSZR6T1irWrQc": "$workflow.definition_workflow_016VJ0ICSXJ7L2ASMPSGqW6ltIEwMXaZh6d.input.variable_workflow_016VJ1SPM0ILM6l4N9zszMixRXxalCNc1fn$",
+            "variable_workflow_016VDTZN1IUJN1t20ivAdT2sEBKfkEm86tQ": "any",
+            "variable_workflow_016VDUFG6CS0M35o640Ho5RtX7BCxgYH2aJ": "permit"
+          },
+          "target": {
+            "execute_on_this_target": false,
+            "no_target": false,
+            "override_workflow_target": false,
+            "target_type": "015DN726ARGMI7iHAlOemFEUGlyxDhgRRfB",
+            "use_workflow_target": true
+          },
+          "workflow_id": "definition_workflow_016VDRQ60GFR61bBHeP6Q3PWs5qJfOSD2on"
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS"
+    ]
+  },
+  "categories": {
+    "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS": {
+      "unique_name": "category_016SW7FV9QVRA64G37PQx5SBtBgLSnByItS",
+      "name": "iroh-response",
+      "title": "iroh-response",
+      "type": "basic.category",
+      "base_type": "category",
+      "description": "Action conforming to tge iroh-response API",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_016VDRQ60GFR61bBHeP6Q3PWs5qJfOSD2on"
+  ]
+}
