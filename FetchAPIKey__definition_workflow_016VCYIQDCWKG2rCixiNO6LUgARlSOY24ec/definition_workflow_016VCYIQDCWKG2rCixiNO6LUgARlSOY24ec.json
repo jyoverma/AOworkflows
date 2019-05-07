@@ -1,0 +1,148 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016VCYIQDCWKG2rCixiNO6LUgARlSOY24ec",
+    "name": "Fetch API Key",
+    "title": "Fetch API Key",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "scope": "local",
+          "name": "auth-token",
+          "type": "datatype.secure_string"
+        },
+        "unique_name": "variable_workflow_016VD111XWTXN3ZqQNWnDfJnw4EsbH4EDqE",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "output",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VDB85NA3HV2m7cztw9hyV2EPv7Keo3Mh",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Cisco Cloud Services Router",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Fetch API Key",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "target_id": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
+        "execute_on_workflow_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VCZDEKQ4QE1Vq2squ5ngKaScC4CNcxpN",
+        "name": "HTTP Request",
+        "title": "Fetch Token",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "$workflow.definition_workflow_016VCYIQDCWKG2rCixiNO6LUgARlSOY24ec.local.variable_workflow_016VD111XWTXN3ZqQNWnDfJnw4EsbH4EDqE$"
+            }
+          ],
+          "display_name": "Fetch Token",
+          "method": "POST",
+          "relative_url": "/auth/token-services",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target": true,
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VD2CFLOSCB1diagTmXXSwlpDQv0jxAY1",
+        "name": "JSONPath Query",
+        "title": "Fetch API-Key",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Fetch API-Key",
+          "input_json": "$activity.definition_activity_016VCZDEKQ4QE1Vq2squ5ngKaScC4CNcxpN.output.response_body$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$.token-id",
+              "jsonpath_query_name": "api-key",
+              "jsonpath_query_type": "string",
+              "zdate_type_format": ""
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VDBH306XVI4UiESZ2UBLBeYlF7GmIHBc",
+        "name": "Set Variables",
+        "title": "Set Variables",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Variables",
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_016VCYIQDCWKG2rCixiNO6LUgARlSOY24ec.output.variable_workflow_016VDB85NA3HV2m7cztw9hyV2EPv7Keo3Mh$",
+              "variable_value_new": "$activity.definition_activity_016VD2CFLOSCB1diagTmXXSwlpDQv0jxAY1.output.jsonpath_queries.api-key$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS": {
+      "unique_name": "definition_target_1Cu0KWVwIxJp18kklDDlGHMP6kS",
+      "name": "Cisco-CSR1000v",
+      "title": "Cisco-CSR1000v",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "Target used by Jyothi - From AMP/Visibility",
+        "disable_certificate_validation": true,
+        "display_name": "Cisco-CSR1000v",
+        "host": "3.215.70.166",
+        "no_runtime_user": true,
+        "path": "/api/v1",
+        "port": 55443,
+        "protocol": "https",
+        "proxy_url": "http://proxy.esl.cisco.com:8080"
+      }
+    }
+  }
+}
