@@ -1,0 +1,126 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_016VJ7EE4WZ081gj0r9eKnEQPBXHtjRa7oq",
+    "name": "SWC ListBlacklistDomains/IPs",
+    "title": "SWC ListBlacklistDomains/IPs",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "scope": "local",
+          "name": "ApiKey",
+          "type": "datatype.secure_string"
+        },
+        "unique_name": "variable_workflow_016VJ8M0EK85S5O8Nd7BAq4xix9ZTK4qmIi",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "output",
+          "type": "datatype.string"
+        },
+        "unique_name": "variable_workflow_016VJI2FM6U5L6a6cAojnkaU3YcUS2IQSce",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "StealthwatchCloud",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "description": "list SWC blacklist domains/IPs",
+      "display_name": "SWC ListBlacklistDomains/IPs",
+      "favorite": false,
+      "target": {
+        "target_type": "web-service.endpoint",
+        "target_id": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
+        "execute_on_workflow_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_016VJ93TJK6IF0SEgZnl1Nj6z1exWrtUXhQ",
+        "name": "HTTP Request",
+        "title": "HTTP Request",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "accept": "application/json",
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "custom_headers": [
+            {
+              "name": "Authorization",
+              "value": "$workflow.definition_workflow_016VJ7EE4WZ081gj0r9eKnEQPBXHtjRa7oq.local.variable_workflow_016VJ8M0EK85S5O8Nd7BAq4xix9ZTK4qmIi$"
+            }
+          ],
+          "display_name": "HTTP Request",
+          "method": "GET",
+          "relative_url": "blacklist/domains/",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "target": {
+            "override_workflow_target": false,
+            "override_workflow_target_group_criteria": false,
+            "use_workflow_target": true,
+            "use_workflow_target_group": false
+          }
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_016VJI9XXKC6Q1SA4XfjCyUNaRyEWoNXzpw",
+        "name": "Set Variables",
+        "title": "SetOutput",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "SetOutput",
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_016VJ7EE4WZ081gj0r9eKnEQPBXHtjRa7oq.output.variable_workflow_016VJI2FM6U5L6a6cAojnkaU3YcUS2IQSce$",
+              "variable_value_new": "$activity.definition_activity_016VJ93TJK6IF0SEgZnl1Nj6z1exWrtUXhQ.output.response_body$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY": {
+      "unique_name": "definition_target_016SWICOCYOEG4Z8AFFrF2A8qkgwx8VVEYY",
+      "name": "Stealthwatch Cloud Target",
+      "title": "Stealthwatch Cloud Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "description": "Stealthwatch Cloud Target used by Jyoti for Cisco Threat Response Integration",
+        "disable_certificate_validation": true,
+        "display_name": "Stealthwatch Cloud Target",
+        "host": "cisco-csr.obsrvbl.com",
+        "no_runtime_user": true,
+        "path": "/api/v3",
+        "port": 443,
+        "protocol": "https"
+      }
+    }
+  }
+}
